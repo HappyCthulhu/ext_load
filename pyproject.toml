@@ -1,0 +1,60 @@
+[tool.pyright]
+reportGeneralTypeIssues = false
+stubPath = "stubs"
+
+[tool.ruff]
+line-length = 120
+extend-exclude = ["venv", "stubs"]
+
+[tool.ruff.lint]
+select = ["ALL"]
+unfixable = ["ERA001", "COM819"] # remove comment out code lines
+# COM819 prohibited-trailing-comma. Это фиксить должна format команда, чтоб как в black было
+# если есть запятая в конце - раскрывает на несколько строк. Если нет - оставляет в одной
+ignore = [
+    "Q", # flake8-quotes
+    "D100",	# undocumented-public-module	Missing docstring in public module
+    "D101",	# undocumented-public-class	"Missing" # docstring in public class
+    "D102",	# undocumented-public-method	Missing docstring "in" # public method
+    "D103",	# undocumented-public-function	Missing docstring in "public" # function
+    "D104",	# undocumented-public-package	Missing docstring in public package	"🛠"
+    "D105",	# undocumented-magic-method	Missing docstring in magic method
+    "D106",	# # undocumented-public-nested-class	Missing docstring in public nested class
+    "D107",	# # undocumented-public-init	Missing docstring in __init__
+    "ANN101", # missing-type-self
+    "TD003", # missing-todo-link missing issue link on the line following this TODO
+    "TD002", # missing-todo-author  missing author in TODO; try: `# TODO(<author_name>): ...` or `# TODO @<author_name>: ...`Ruff
+    "S101", # assert Use of assert detected	
+    "ANN002", #	missing-type-args	Missing type annotation for *{name}
+    "ANN003", #	missing-type-kwargs	Missing type annotation for **{name}
+    "RUF001", #	ambiguous-unicode-character-string	String contains ambiguous {}. Did you mean {}? Может на русскую "с" в комменте ругаться 
+    "RUF003", #	ambiguous-unicode-character-comment
+    "SLF001", # private-member-access	Private member accessed: {access} | учитывая, что в Django постоянно дергаем _Meta моделей и поля в духе _prefetched_objects_cache и т.д.
+    # "FA100", # future-rewritable-type-annotation	Missing from __future__ import annotations, but uses {name}	
+    # "FA102", # future-required-type-annotation	Missing from __future__ import annotations, but uses
+    "DJ001", # django-nullable-model-string-field	Avoid using null=True on string-based fields such as	
+    "PGH004", # Use specific rule codes when using `noqa`
+    "TRY003", # Avoid specifying long messages outside the exception class
+    "EM102", # Exception must not use an f-string literal, assign to variable first
+    "RUF002", # Docstring contains ambiguous `у` (CYRILLIC SMALL LETTER U). Did you mean `y` (LATIN SMALL LETTER Y)?
+    "FBT001", # Boolean-typed positional argument in function definition
+    "FBT002", # Boolean default positional argument in function definition
+    "ANN204", # Missing return type annotation for special method `__init__`
+]
+
+# Спорные: FBT001, FBT002, RUF012 - в джанго часто нельзя переписать другой тип полей
+# TCH002 делает вот это:
+#if TYPE_CHECKING:
+#    from django.http import HttpRequest
+# А если не type checking? Тогда проект наебнется?
+# мутить и FA102 и FA100 или только что-то одно?
+
+#warning: `one-blank-line-before-class` (D203) and `no-blank-line-before-class` (D211) are incompatible. Ignoring `one-blank-line-before-class`.
+#warning: `multi-line-summary-first-line` (D212) and `multi-line-summary-second-line` (D213) are incompatible. Ignoring `multi-line-summary-second-line`.
+
+[tool.ruff.lint.flake8-annotations]
+mypy-init-return = true # ANN204 | checkers often allow you to omit the return type annotation for __init__ methods, as long as at least one argument has a type annotation
+
+[tool.ruff.lint.isort]
+force-wrap-aliases = true
+combine-as-imports = true

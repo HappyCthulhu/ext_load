@@ -1,0 +1,52 @@
+alias r := run
+alias s := stop
+alias m := migrate
+alias mm := makemigrations
+alias mmm := makemigrations_and_migrate 
+alias sh := shell
+alias e := exec
+
+CHROME := env_var("CHROME_EXECUTION")
+
+
+run *args:
+   docker compose up -d db
+   ./manage.py runserver {{args}}
+
+stop:
+    docker stop $(docker ps -aq)
+ 
+
+celery:
+    docker compose up -d redis
+    celery -A ext worker -l debug
+
+up:
+    docker compose up -d
+    docker compose up api
+
+makemigrations *args:
+   ./manage.py makemigrations {{args}}
+    
+migrate *args:
+   ./manage.py migrate {{args}}
+
+psql:
+    PGPASSWORD=np-api-password psql -U np-api -h localhost -d national-projects
+
+makemigrations_and_migrate:
+   ./manage.py makemigrations && ./manage.py migrate 
+
+shell:
+    ./manage.py shell
+
+generate_pgh_model:
+    PGH_MODELS_CHECKS_DISABLED=True ./manage.py makemigrations
+    PGH_MODELS_CHECKS_DISABLED=True ./manage.py migrate
+    PGH_MODELS_CHECKS_DISABLED=True ./manage.py add_pg_history_model
+    PGH_MODELS_CHECKS_DISABLED=True ./manage.py makemigrations
+    PGH_MODELS_CHECKS_DISABLED=True ./manage.py migrate
+    ./manage.py check
+
+exec:
+    docker compose exec -it api bash 
