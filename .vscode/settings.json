@@ -1,0 +1,28 @@
+{
+    // "python.analysis.typeCheckingMode": "off",
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.inlayHints.functionReturnTypes": true,
+    "python.analysis.inlayHints.variableTypes": true,
+    "[python]": {
+        "editor.formatOnType": true
+    },
+    "python.analysis.indexing": true,
+    "mypy-type-checker.cwd": "${workspaceFolder}/server",
+    "python.autoComplete.extraPaths": [
+        "${workspaceFolder}/server"
+    ],
+    "python.languageServer": "Pylance",
+    "python.terminal.activateEnvInCurrentTerminal": true,
+    "python.analysis.packageIndexDepths": [
+        {
+            "name": "",
+            "depth": 10,
+            "includeAllSymbols": true
+        }
+    ],
+    "python.testing.cwd": "${workspaceFolder}/server",
+    "python.testing.pytestArgs": [],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true,
+    "terminal.integrated.cwd": "${workspaceFolder}/server", // Путь к начальной директории терминала
+}
