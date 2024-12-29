@@ -1,0 +1,35 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "*"
+django-rest-framework = "*"
+django-filter = "*"
+psycopg2-binary = "*"
+celery = "*"
+loguru = "*"
+datamodel-code-generator = "*"
+thefuzz = "*"
+tqdm = "*"
+orjson = "*"
+pytest-html = "*"
+pytest-drf = "*"
+pytest = "*"
+drf-spectacular = "*"
+drf-spectacular-sidecar = "*"
+django-pghistory = "*"
+django-celery-results = "*"
+django-celery-beat = "*"
+
+[dev-packages]
+pytest = "*"
+celery-types = "*"
+types-tqdm = "*"
+types-psycopg2 = "*"
+mypy = "*"
+django-stubs = {extras = ["compatible-mypy"], version = "*"}
+
+[requires]
+python_version = "3.12"
