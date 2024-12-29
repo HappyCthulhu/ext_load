@@ -13,6 +13,9 @@
     ],
     "python.languageServer": "Pylance",
     "python.terminal.activateEnvInCurrentTerminal": true,
+    "python.analysis.extraPaths": [
+        "${workspaceFolder}/server"
+    ],
     "python.analysis.packageIndexDepths": [
         {
             "name": "",
@@ -25,4 +28,11 @@
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,
     "terminal.integrated.cwd": "${workspaceFolder}/server", // Путь к начальной директории терминала
+    "python.analysis.diagnosticSeverityOverrides": {
+
+         // Отключает ошибки pylance
+        "reportInvalidTypeVarUse": "none",
+        "reportInvalidTypeForm": "none",
+        "reportGeneralTypeIssues": "none"
+    }
 }
